@@ -36,14 +36,18 @@ for q = 1:length(parameter_tnorm_name)
     end
 end
 
-%% aux function
-function plot_tnorm(a,b,Is,plot_title,z_label,m,n,selected_plot)
-    subplot(m,n,selected_plot);
-    surf(a,b,Is);
+% Fuzzy implications plots
+implication_type = {'Godel', 'Lukasiewicz', 'Zadeh', 'Yager'};
+figure;
+for k = 1:length(implication_type)
+    implication = fuzzy_implication(a, b, implication_type{k}, 2); % Ejemplo p=2 para Yager
+    subplot(2, 2, k);
+    surf(a, b, implication);
     xlabel('a');
     ylabel('b');
-    zlabel(z_label);
-    grid minor;
-    title(plot_title);
-    axis square;
+    zlabel('Implication');
+    title(sprintf('Implication: %s', implication_type{k}));
 end
+
+% Advanced graphics
+advanced_plot(a, b, t, 'Advanced T-Norm Plot', 't-norm');
